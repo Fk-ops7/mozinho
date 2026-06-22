@@ -223,7 +223,71 @@ button {
   font-size: clamp(18px, 4vw, 26px);
   color: rgba(255,255,255,.8);
 }
+#musicBtn{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.08);
+  color: white;
+  backdrop-filter: blur(15px);
+  padding: 12px 18px;
+  border-radius: 999px;
+}
+.gallery img {
+  cursor: pointer;
+  transition: .4s ease;
+}
 
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.88);
+  display: none;
+  place-items: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+#lightbox img {
+  width: min(500px, 85vw);
+  max-height: 75vh;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+#counter {
+  margin-top: 28px;
+  font-size: clamp(22px, 5vw, 42px);
+  color: white;
+  line-height: 1.5;
+  text-shadow: 0 0 25px rgba(255,80,160,.45);
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  color: #ff5fa2;
+  font-size: 24px;
+  animation: subir 5s linear forwards;
+  z-index: 300;
+  pointer-events: none;
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
 @media (max-width: 768px) {
   .gallery-screen {
     display: block;
@@ -240,13 +304,23 @@ button {
     aspect-ratio: 4 / 5;
     height: auto;
   }
+  
 }
 </style>
 </head>
 
 <body>
 
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="">
+</div>
+
 <canvas id="space"></canvas>
+
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
 
 <section class="screen active opening" id="opening">
   <h1>Tenho algo só seu...</h1>
@@ -336,11 +410,11 @@ button {
 
     <div class="gallery">
 
-      <img src="nos.jpeg" alt="">
-      <img src="nos2.jpeg" alt="">
-      <img src="nos3.jpeg" alt="">
-      <img src="nos5.jpeg" alt="">
-      <img src="nos6.jpeg" alt="">
+<img src="nos.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos2.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos3.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos5.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos6.jpeg" alt="" onclick="openLightbox(this.src)">
 
     </div>
 
@@ -361,6 +435,8 @@ button {
     <h1>Fim?</h1>
 
     <p id="finalText"></p>
+
+    <div id="counter"></div>
 
   </div>
 
@@ -448,6 +524,12 @@ function hideAll() {
 
 function showLetter() {
 
+  const music = document.getElementById("music");
+
+  if(music.paused){
+    music.play();
+  }
+
   hideAll();
 
   document.getElementById("letter").classList.add("active");
@@ -476,15 +558,97 @@ function showFinal() {
 
   document.getElementById("final").classList.add("active");
 
+  createHearts();
+
   setTimeout(() => {
 
     document.getElementById("finalText").innerHTML =
     "Ainda estamos só começando.<br><br>❤️";
 
+    startCounter();
+
   }, 1500);
 
 }
 
+function toggleMusic(){
+
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+
+  if(music.paused){
+
+    music.play();
+    btn.innerHTML = "⏸️ Pausar música";
+
+  }else{
+
+    music.pause();
+    btn.innerHTML = "🎵 Tocar nossa música";
+
+  }
+
+}
+function openLightbox(src) {
+  document.getElementById("lightboxImg").src = src;
+  document.getElementById("lightbox").style.display = "grid";
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+function startCounter() {
+
+  const startDate = new Date("2026-04-18T17:04:00");
+
+  function updateCounter() {
+
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("counter").innerHTML =
+      `Estamos juntas há<br>
+      <strong>${days}</strong> dias, 
+      <strong>${hours}</strong> horas,<br>
+      <strong>${minutes}</strong> minutos e 
+      <strong>${seconds}</strong> segundos `;
+
+  }
+
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+}
+
+let heartsInterval;
+
+function createHearts() {
+
+  if(heartsInterval) return;
+
+  heartsInterval = setInterval(() => {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 18 + 18 + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+
+  }, 350);
+
+}
 </script>
 
 </body>
