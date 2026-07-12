@@ -306,10 +306,110 @@ button {
   }
   
 }
+
+
+/* Visual mais colorido */
+body {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 58, 150, .24), transparent 32%),
+    radial-gradient(circle at 85% 25%, rgba(120, 80, 255, .24), transparent 34%),
+    radial-gradient(circle at 50% 90%, rgba(0, 210, 255, .16), transparent 38%),
+    linear-gradient(135deg, #080319, #16052b 48%, #061525);
+}
+
+.screen::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(255, 69, 160, .16);
+  filter: blur(70px);
+  top: -120px;
+  left: -100px;
+  pointer-events: none;
+}
+
+.screen::after {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(86, 110, 255, .15);
+  filter: blur(80px);
+  right: -130px;
+  bottom: -140px;
+  pointer-events: none;
+}
+
+.screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  background: linear-gradient(135deg, rgba(255, 72, 158, .78), rgba(117, 78, 255, .72));
+  box-shadow: 0 12px 35px rgba(176, 74, 255, .22);
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 42px rgba(255, 72, 158, .30);
+  filter: brightness(1.08);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.back-btn {
+  background: rgba(255,255,255,.09);
+}
+
+.gallery img,
+.gallery video {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 20px 60px rgba(255,80,160,.18);
+  transition: .4s ease;
+}
+
+.gallery video {
+  background: #000;
+}
+
+.gallery img:hover,
+.gallery video:hover {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-row button {
+    width: min(280px, 100%);
+  }
+}
+
 </style>
 </head>
 
 <body>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵 Tocar nossa música</button>
 
 <div id="lightbox" onclick="closeLightbox()">
   <img id="lightboxImg" src="">
@@ -359,9 +459,10 @@ button {
       Com amor, seu amor hihihi ❤️
     </div>
 
-    <button class="next-btn" onclick="showTimeline()">
-      Continuar
-    </button>
+    <div class="button-row">
+      <button class="back-btn" onclick="showMessage()">← Voltar</button>
+      <button onclick="showTimeline()">Continuar</button>
+    </div>
   </div>
 </section>
 
@@ -399,10 +500,9 @@ button {
 
     </div>
 
-    <div style="text-align:center;margin-top:25px;">
-      <button onclick="showGallery()">
-        Ver nossas memórias
-      </button>
+    <div class="button-row">
+      <button class="back-btn" onclick="showLetter()">← Voltar</button>
+      <button onclick="showGallery()">Ver nossas memórias</button>
     </div>
 
   </div>
@@ -418,16 +518,22 @@ button {
 <img src="nos.jpeg" alt="" onclick="openLightbox(this.src)">
 <img src="nos2.jpeg" alt="" onclick="openLightbox(this.src)">
 <img src="nos3.jpeg" alt="" onclick="openLightbox(this.src)">
+<video src="nos12.mp4" controls playsinline preload="metadata"></video>
 <img src="nos5.jpeg" alt="" onclick="openLightbox(this.src)">
 <img src="nos6.jpeg" alt="" onclick="openLightbox(this.src)">
 <img src="nos8.jpeg" alt="" onclick="openLightbox(this.src)">
 <img src="nos9.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos10.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos11.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos13.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos14.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos15.jpeg" alt="" onclick="openLightbox(this.src)">
+<img src="nos16.jpeg" alt="" onclick="openLightbox(this.src)">
     </div>
 
-    <div style="margin-top:30px;">
-      <button onclick="showFinal()">
-        Última coisa...
-      </button>
+    <div class="button-row">
+      <button class="back-btn" onclick="showTimeline()">← Voltar</button>
+      <button onclick="showFinal()">Última coisa...</button>
     </div>
 
   </div>
@@ -443,6 +549,10 @@ button {
     <p id="finalText"></p>
 
     <div id="counter"></div>
+
+    <div class="button-row">
+      <button class="back-btn" onclick="showGallery()">← Voltar para as memórias</button>
+    </div>
 
   </div>
 
@@ -525,6 +635,13 @@ function hideAll() {
     screen.classList.remove("active");
 
   });
+
+}
+
+function showMessage() {
+
+  hideAll();
+  document.getElementById("message").classList.add("active");
 
 }
 
