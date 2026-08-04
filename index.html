@@ -3,344 +3,193 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Para você</title>
+<meta name="theme-color" content="#11051f" />
+<title>Para você ❤️</title>
 
 <style>
+:root {
+  --pink: #ff4f9a;
+  --pink-light: #ff91c2;
+  --purple: #7c4dff;
+  --blue: #38c9ff;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.76);
+  --glass: rgba(255,255,255,.09);
+  --border: rgba(255,255,255,.16);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html {
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  background: #02020a;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: white;
+  background: #080319;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  min-height: 100svh;
-}
-
-canvas {
-  position: fixed;
-  inset: 0;
   width: 100%;
-  height: 100%;
-}
-
-.screen {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: 1s ease;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   overflow: hidden;
-}
-
-.screen.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.opening {
-  z-index: 3;
-  text-align: center;
-}
-
-.opening h1 {
-  font-size: clamp(28px, 7vw, 72px);
-  font-weight: 300;
-  line-height: 1.1;
-  opacity: 0;
-  animation: introText 4s ease forwards;
-}
-
-@keyframes introText {
-  0% { opacity: 0; transform: translateY(18px); }
-  25%, 75% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-18px); }
-}
-
-.main-message {
-  z-index: 4;
-  text-align: center;
-}
-
-.main-message h2 {
-  max-width: 920px;
-  font-size: clamp(34px, 8vw, 82px);
-  font-weight: 300;
-  line-height: 1.08;
-  margin-bottom: 34px;
-}
-
-button {
-  border: 1px solid rgba(255,255,255,.28);
-  background: rgba(255,255,255,.08);
-  color: white;
-  padding: 15px 24px;
-  border-radius: 999px;
-  font-size: 15px;
-  letter-spacing: .5px;
-  backdrop-filter: blur(14px);
-  cursor: pointer;
-}
-
-.card {
-  width: min(720px, 100%);
-  max-height: 86svh;
-  overflow-y: auto;
-  padding: clamp(30px, 6vw, 52px);
-  border-radius: 30px;
-  background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-  border: 1px solid rgba(255,255,255,.16);
-  box-shadow: 0 30px 100px rgba(255, 80, 160, .16);
-}
-
-.card h2 {
-  font-size: clamp(32px, 6vw, 50px);
-  font-weight: 300;
-  margin-bottom: 26px;
-}
-
-.card p {
-  font-size: clamp(16px, 3.8vw, 19px);
-  line-height: 1.85;
-  color: rgba(255,255,255,.8);
-  margin-bottom: 18px;
-}
-
-.signature {
-  margin-top: 30px;
-  color: white;
-  font-size: 18px;
-}
-
-.next-btn {
-  margin-top: 28px;
-}
-
-.timeline {
-  z-index: 6;
-}
-
-.timeline-wrap {
-  width: min(900px, 100%);
-}
-
-.timeline-wrap h2 {
-  font-size: clamp(32px, 6vw, 56px);
-  font-weight: 300;
-  margin-bottom: 28px;
-  text-align: center;
-}
-
-.timeline-list {
-  display: grid;
-  gap: 14px;
-}
-
-.timeline-item {
-  padding: 20px;
-  border-radius: 24px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.13);
-}
-
-.timeline-item span {
-  display: block;
-  font-size: 13px;
-  color: rgba(255,255,255,.52);
-  margin-bottom: 7px;
-}
-
-.timeline-item p {
-  font-size: clamp(16px, 3vw, 20px);
-  color: rgba(255,255,255,.86);
-}
-.gallery-screen {
-  z-index: 7;
-  display: block;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding: 35px 24px 120px;
-}
-
-.gallery-container {
-  width: min(1200px, 100%);
-  margin: 0 auto;
-  text-align: center;
-}
-
-.gallery-container h2 {
-  font-size: clamp(32px, 6vw, 56px);
-  font-weight: 300;
-  margin-bottom: 30px;
-}
-
-.gallery {
-  width: min(1100px, 100%);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.gallery img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  height: auto;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 20px 60px rgba(255,80,160,.14);
-}
-
-.gallery img:hover {
-  transform: scale(1.03);
-}
-
-.final-screen {
-  z-index: 8;
-  text-align: center;
-}
-
-.final-screen h1 {
-  font-size: clamp(40px, 8vw, 90px);
-  font-weight: 300;
-  margin-bottom: 25px;
-}
-
-.final-screen p {
-  font-size: clamp(18px, 4vw, 26px);
-  color: rgba(255,255,255,.8);
-}
-#musicBtn{
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(255,255,255,.08);
-  color: white;
-  backdrop-filter: blur(15px);
-  padding: 12px 18px;
-  border-radius: 999px;
-}
-.gallery img {
-  cursor: pointer;
-  transition: .4s ease;
-}
-
-#lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.88);
-  display: none;
-  place-items: center;
-  z-index: 200;
-  padding: 20px;
-}
-
-#lightbox img {
-  width: min(500px, 85vw);
-  max-height: 75vh;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,.15);
-  box-shadow: 0 20px 60px rgba(0,0,0,.5);
-}
-
-#counter {
-  margin-top: 28px;
-  font-size: clamp(22px, 5vw, 42px);
-  color: white;
-  line-height: 1.5;
-  text-shadow: 0 0 25px rgba(255,80,160,.45);
-}
-
-.heart {
-  position: fixed;
-  bottom: -30px;
-  color: #ff5fa2;
-  font-size: 24px;
-  animation: subir 5s linear forwards;
-  z-index: 300;
-  pointer-events: none;
-}
-
-@keyframes subir {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  to {
-    transform: translateY(-110vh);
-    opacity: 0;
-  }
-}
-@media (max-width: 768px) {
-  .gallery-screen {
-    display: block;
-    overflow-y: scroll;
-    padding: 35px 18px 120px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .gallery {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery img {
-    aspect-ratio: 4 / 5;
-    height: auto;
-  }
-  
-}
-
-
-/* Visual mais colorido */
-body {
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
   background:
     radial-gradient(circle at 15% 20%, rgba(255, 58, 150, .24), transparent 32%),
     radial-gradient(circle at 85% 25%, rgba(120, 80, 255, .24), transparent 34%),
     radial-gradient(circle at 50% 90%, rgba(0, 210, 255, .16), transparent 38%),
     linear-gradient(135deg, #080319, #16052b 48%, #061525);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.screen::before {
-  content: "";
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-  background: rgba(255, 69, 160, .16);
-  filter: blur(70px);
-  top: -120px;
-  left: -100px;
+body.lightbox-open {
+  overflow: hidden;
+}
+
+button, video, audio {
+  touch-action: manipulation;
+}
+
+button {
+  min-height: 48px;
+  border: 1px solid rgba(255,255,255,.24);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  letter-spacing: .35px;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 72, 158, .82), rgba(117, 78, 255, .78));
+  box-shadow: 0 12px 35px rgba(176, 74, 255, .22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease, opacity .25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 42px rgba(255, 72, 158, .30);
+  filter: brightness(1.08);
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+button:focus-visible,
+.gallery-media:focus-visible,
+.secret-orb:focus-visible {
+  outline: 3px solid rgba(255,255,255,.85);
+  outline-offset: 4px;
+}
+
+#space {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   pointer-events: none;
 }
 
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  width: 48vw;
+  height: 48vw;
+  min-width: 320px;
+  min-height: 320px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .20;
+  animation: auroraMove 12s ease-in-out infinite alternate;
+}
+
+.aurora::before {
+  top: -18%;
+  left: -14%;
+  background: #ff3f9b;
+}
+
+.aurora::after {
+  right: -18%;
+  bottom: -20%;
+  background: #455eff;
+  animation-delay: -5s;
+}
+
+@keyframes auroraMove {
+  to { transform: translate3d(8vw, 5vh, 0) scale(1.15); }
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding-top: max(24px, calc(var(--safe-top) + 18px));
+  padding-right: max(18px, calc(var(--safe-right) + 18px));
+  padding-bottom: max(24px, calc(var(--safe-bottom) + 18px));
+  padding-left: max(18px, calc(var(--safe-left) + 18px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  transform: scale(1.018);
+  transition: opacity .85s ease, visibility .85s ease, transform .85s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.screen::before,
 .screen::after {
   content: "";
   position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.screen::before {
+  width: 320px;
+  height: 320px;
+  top: -120px;
+  left: -100px;
+  background: rgba(255, 69, 160, .14);
+  filter: blur(72px);
+}
+
+.screen::after {
   width: 360px;
   height: 360px;
-  border-radius: 50%;
-  background: rgba(86, 110, 255, .15);
-  filter: blur(80px);
   right: -130px;
   bottom: -140px;
-  pointer-events: none;
+  background: rgba(86, 110, 255, .14);
+  filter: blur(82px);
 }
 
 .screen > * {
@@ -348,16 +197,150 @@ body {
   z-index: 1;
 }
 
-button {
-  background: linear-gradient(135deg, rgba(255, 72, 158, .78), rgba(117, 78, 255, .72));
-  box-shadow: 0 12px 35px rgba(176, 74, 255, .22);
-  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+.opening {
+  text-align: center;
 }
 
-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 16px 42px rgba(255, 72, 158, .30);
-  filter: brightness(1.08);
+.intro-box {
+  width: min(940px, 100%);
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+}
+
+.intro-line {
+  position: absolute;
+  width: 100%;
+  font-size: clamp(27px, 7vw, 70px);
+  line-height: 1.12;
+  font-weight: 280;
+  opacity: 0;
+  transform: translateY(18px);
+  text-shadow: 0 0 36px rgba(255,90,180,.24);
+}
+
+.intro-line.show {
+  animation: introLine 2.25s ease forwards;
+}
+
+@keyframes introLine {
+  0% { opacity: 0; transform: translateY(18px) scale(.98); }
+  18%, 72% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-15px) scale(1.01); }
+}
+
+.intro-spark {
+  margin-top: 140px;
+  font-size: 28px;
+  opacity: .75;
+  animation: pulse 1.7s ease-in-out infinite;
+}
+
+.main-message {
+  text-align: center;
+}
+
+.main-inner {
+  width: min(1000px, 100%);
+}
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+  margin-bottom: 18px;
+}
+
+.main-message h1 {
+  min-height: 2.35em;
+  font-size: clamp(36px, 8vw, 82px);
+  font-weight: 280;
+  line-height: 1.08;
+  text-wrap: balance;
+  margin-bottom: 32px;
+  text-shadow: 0 0 36px rgba(255,90,180,.18);
+}
+
+.type-caret {
+  display: inline-block;
+  width: 2px;
+  height: .95em;
+  margin-left: 5px;
+  vertical-align: -.07em;
+  background: rgba(255,255,255,.88);
+  animation: blink .8s steps(1) infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse { 50% { transform: scale(1.12); opacity: 1; } }
+
+.glass-card {
+  position: relative;
+  width: min(740px, 100%);
+  max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px);
+  overflow-y: auto;
+  padding: clamp(30px, 6vw, 54px);
+  border-radius: 30px;
+  background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 100px rgba(255, 80, 160, .16), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(255,255,255,.35), rgba(255,80,160,.16), rgba(100,100,255,.22));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: borderGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  to { filter: drop-shadow(0 0 12px rgba(255,90,180,.32)); }
+}
+
+.glass-card h2 {
+  font-size: clamp(32px, 6vw, 50px);
+  font-weight: 280;
+  margin-bottom: 26px;
+}
+
+.letter-text p {
+  font-size: clamp(16px, 3.8vw, 19px);
+  line-height: 1.85;
+  color: var(--muted);
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.letter-text p.visible {
+  animation: paragraphIn .75s ease forwards;
+}
+
+@keyframes paragraphIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signature {
+  margin-top: 30px;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.signature.visible {
+  animation: paragraphIn .75s ease forwards;
 }
 
 .button-row {
@@ -369,549 +352,1117 @@ button:hover {
 }
 
 .back-btn {
-  background: rgba(255,255,255,.09);
-}
-
-.gallery img,
-.gallery video {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  height: auto;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 20px 60px rgba(255,80,160,.18);
-  transition: .4s ease;
-}
-
-.gallery video {
-  background: #000;
-}
-
-.gallery img:hover,
-.gallery video:hover {
-  transform: scale(1.03);
-}
-
-@media (max-width: 768px) {
-  .button-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-row button {
-    width: min(280px, 100%);
-  }
-}
-
-
-/* Ajustes específicos para iPhone e Safari iOS */
-:root {
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-right: env(safe-area-inset-right, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-left: env(safe-area-inset-left, 0px);
-}
-
-html {
-  height: -webkit-fill-available;
-  background: #080319;
-}
-
-body {
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
-  overscroll-behavior: none;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button, audio, video {
-  touch-action: manipulation;
-}
-
-button {
-  min-height: 48px;
-}
-
-.screen {
-  min-height: 100dvh;
-  padding-top: max(24px, calc(var(--safe-top) + 18px));
-  padding-right: max(18px, calc(var(--safe-right) + 18px));
-  padding-bottom: max(24px, calc(var(--safe-bottom) + 18px));
-  padding-left: max(18px, calc(var(--safe-left) + 18px));
-}
-
-#musicBtn {
-  top: max(14px, calc(var(--safe-top) + 10px));
-  right: max(14px, calc(var(--safe-right) + 10px));
-  max-width: calc(100vw - var(--safe-left) - var(--safe-right) - 28px);
-}
-
-.card {
-  max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px);
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  background: rgba(255,255,255,.08);
+  box-shadow: none;
 }
 
 .timeline {
+  align-items: start;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .timeline-wrap {
+  width: min(900px, 100%);
+  margin: auto;
   padding-top: 54px;
-  padding-bottom: calc(var(--safe-bottom) + 28px);
+  padding-bottom: calc(var(--safe-bottom) + 32px);
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(34px, 6vw, 58px);
+  font-weight: 280;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: rgba(255,255,255,.62);
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.timeline-list {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding-left: 24px;
+}
+
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(var(--pink), var(--purple), var(--blue));
+  box-shadow: 0 0 20px rgba(255,70,160,.35);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(255,255,255,.13);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 0 5px rgba(255,75,158,.18), 0 0 20px rgba(255,75,158,.75);
+}
+
+.timeline-item.reveal {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-item span {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,.52);
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.timeline-item p {
+  font-size: clamp(16px, 3vw, 20px);
+  color: rgba(255,255,255,.88);
 }
 
 .gallery-screen {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
   padding-top: max(72px, calc(var(--safe-top) + 64px));
   padding-right: max(18px, calc(var(--safe-right) + 18px));
   padding-bottom: max(110px, calc(var(--safe-bottom) + 86px));
   padding-left: max(18px, calc(var(--safe-left) + 18px));
-  overscroll-behavior-y: contain;
 }
 
-.gallery video {
-  display: block;
-  max-width: 100%;
+.gallery-container {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  text-align: center;
 }
+
+.gallery {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  perspective: 1000px;
+}
+
+.gallery-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 20px 60px rgba(255,80,160,.17);
+  background: #05050d;
+  opacity: 0;
+  transform: translateY(-35px) rotateX(5deg) scale(.96);
+  transition: opacity .75s ease, transform .75s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+}
+
+.gallery-media.reveal {
+  opacity: 1;
+  transform: translateY(0) rotateX(0) scale(1);
+}
+
+.gallery-media:hover {
+  transform: translateY(-4px) scale(1.018);
+  box-shadow: 0 26px 72px rgba(255,80,160,.25);
+}
+
+.gallery-media img,
+.gallery-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-media img {
+  cursor: zoom-in;
+}
+
+.gallery-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 65%, rgba(0,0,0,.20));
+}
+
+.video-label {
+  position: absolute;
+  z-index: 3;
+  left: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.final-screen {
+  text-align: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.final-inner {
+  width: min(900px, 100%);
+  padding: 30px 0 calc(var(--safe-bottom) + 30px);
+}
+
+.final-screen h1 {
+  font-size: clamp(42px, 9vw, 92px);
+  font-weight: 280;
+  margin-bottom: 20px;
+}
+
+.final-screen p {
+  font-size: clamp(18px, 4vw, 27px);
+  color: rgba(255,255,255,.82);
+  line-height: 1.5;
+}
+
+.counter-title {
+  margin-top: 30px;
+  margin-bottom: 16px;
+  font-size: clamp(18px, 4vw, 25px);
+  color: rgba(255,255,255,.78);
+}
+
+.counter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(105px, 1fr));
+  gap: 12px;
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.counter-card {
+  padding: 20px 12px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 50px rgba(80,40,160,.18);
+}
+
+.counter-card strong {
+  display: block;
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 360;
+  line-height: 1;
+  text-shadow: 0 0 26px rgba(255,80,160,.36);
+}
+
+.counter-card span {
+  display: block;
+  margin-top: 9px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+}
+
+.final-quote {
+  min-height: 150px;
+  margin: 34px auto 0;
+  width: min(720px, 100%);
+  font-size: clamp(22px, 5vw, 40px) !important;
+  font-weight: 280;
+  text-wrap: balance;
+}
+
+.music-btn {
+  position: fixed;
+  top: max(14px, calc(var(--safe-top) + 10px));
+  right: max(14px, calc(var(--safe-right) + 10px));
+  z-index: 110;
+  max-width: calc(100vw - var(--safe-left) - var(--safe-right) - 28px);
+  padding: 11px 16px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+.music-btn.playing {
+  animation: musicPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  50% { box-shadow: 0 0 0 7px rgba(255,80,160,.08), 0 0 24px rgba(255,80,160,.30); }
+}
+
+.progress-dots {
+  position: fixed;
+  left: max(14px, calc(var(--safe-left) + 10px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: grid;
+  gap: 9px;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  border: none;
+  box-shadow: none;
+  transition: .3s ease;
+}
+
+.progress-dot:hover { transform: scale(1.25); box-shadow: none; }
+.progress-dot.active { background: white; transform: scale(1.35); box-shadow: 0 0 14px rgba(255,100,180,.7); }
 
 #lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
   padding-top: max(20px, calc(var(--safe-top) + 12px));
   padding-right: max(20px, calc(var(--safe-right) + 12px));
   padding-bottom: max(20px, calc(var(--safe-bottom) + 12px));
   padding-left: max(20px, calc(var(--safe-left) + 12px));
+  background: rgba(0,0,0,.90);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+#lightbox.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  width: min(940px, 100%);
+  height: min(82vh, 820px);
+  display: grid;
+  place-items: center;
+}
+
+#lightboxImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 22px;
+  box-shadow: 0 28px 90px rgba(0,0,0,.65);
+  transform: scale(.94);
+  transition: transform .3s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+#lightbox.open #lightboxImg { transform: scale(1); }
+
+.lightbox-btn {
+  position: absolute;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  font-size: 24px;
+}
+
+.lightbox-close { top: 0; right: 0; }
+.lightbox-prev { left: 0; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 0; top: 50%; transform: translateY(-50%); }
+.lightbox-prev:hover, .lightbox-next:hover { transform: translateY(-50%) scale(1.05); }
+.lightbox-count {
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+}
+
+.heart,
+.firework-heart {
+  position: fixed;
+  z-index: 350;
+  pointer-events: none;
+  user-select: none;
+}
+
+.heart {
+  bottom: -35px;
+  animation: floatHeart 5s linear forwards;
+}
+
+@keyframes floatHeart {
+  from { transform: translateY(0) rotate(0); opacity: 1; }
+  to { transform: translateY(-112vh) rotate(38deg); opacity: 0; }
+}
+
+.firework-heart {
+  animation: heartBurst 1.35s cubic-bezier(.12,.75,.2,1) forwards;
+}
+
+@keyframes heartBurst {
+  0% { transform: translate(0,0) scale(.2); opacity: 1; }
+  78% { opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.05) rotate(var(--r)); opacity: 0; }
+}
+
+.shooting-star {
+  position: fixed;
+  z-index: 1;
+  width: 130px;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.98));
+  filter: drop-shadow(0 0 6px white);
+  transform: rotate(-28deg);
+  animation: shoot 1.3s ease-out forwards;
+}
+
+@keyframes shoot {
+  from { translate: 0 0; opacity: 0; }
+  10% { opacity: 1; }
+  to { translate: 120vw 70vh; opacity: 0; }
+}
+
+.secret-orb {
+  position: fixed;
+  left: max(14px, calc(var(--safe-left) + 10px));
+  bottom: max(14px, calc(var(--safe-bottom) + 10px));
+  z-index: 105;
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 0 18px rgba(120,100,255,.14);
+  opacity: .72;
+}
+
+.secret-message {
+  position: fixed;
+  left: 50%;
+  bottom: max(70px, calc(var(--safe-bottom) + 62px));
+  z-index: 400;
+  transform: translate(-50%, 20px);
+  width: min(420px, calc(100vw - 32px));
+  padding: 18px 22px;
+  border-radius: 20px;
+  text-align: center;
+  background: rgba(18,7,35,.92);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: .35s ease;
+}
+
+.secret-message.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.cursor-heart {
+  position: fixed;
+  z-index: 999;
+  pointer-events: none;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+@media (pointer: fine) {
+  body { cursor: default; }
+  .cursor-heart.visible { opacity: .8; }
+}
+
+@media (max-width: 768px) {
+  .gallery { grid-template-columns: 1fr; }
+  .progress-dots { display: none; }
+  .button-row { flex-direction: column; align-items: center; }
+  .button-row button { width: min(290px, 100%); }
+  .counter-grid { grid-template-columns: repeat(2, 1fr); }
+  .lightbox-prev { left: 4px; }
+  .lightbox-next { right: 4px; }
 }
 
 @media (max-width: 430px) {
-  .main-message h2 {
-    font-size: clamp(32px, 10vw, 48px);
-  }
-
-  .card {
-    width: 100%;
-    padding: 28px 22px;
-    border-radius: 24px;
-  }
-
-  .card p {
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  .timeline-wrap h2,
-  .gallery-container h2 {
-    font-size: 36px;
-  }
-
-  .timeline-item {
-    padding: 17px;
-    border-radius: 20px;
-  }
-
-  .gallery {
-    gap: 14px;
-  }
-
-  .gallery img,
-  .gallery video {
-    border-radius: 20px;
-  }
-
-  #musicBtn {
-    font-size: 13px;
-    padding: 10px 14px;
-  }
+  .main-message h1 { font-size: clamp(32px, 10vw, 48px); }
+  .glass-card { width: 100%; padding: 28px 22px; border-radius: 24px; }
+  .letter-text p { font-size: 16px; line-height: 1.72; }
+  .section-title { font-size: 36px; }
+  .timeline-item { padding: 17px; border-radius: 20px; }
+  .gallery { gap: 14px; }
+  .gallery-media { border-radius: 20px; }
+  .music-btn { font-size: 13px; padding: 10px 13px; }
+  .lightbox-btn { width: 43px; height: 43px; min-height: 43px; }
 }
 
 @media (orientation: landscape) and (max-height: 500px) {
-  .screen {
-    align-items: start;
-    overflow-y: auto;
-  }
-
-  .main-message > div,
-  .final-screen > div {
-    margin: auto 0;
-  }
+  .screen { align-items: start; overflow-y: auto; }
+  .main-inner, .final-inner { margin: auto 0; }
+  .main-message h1 { font-size: 42px; min-height: 0; }
+  .counter-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
 
 <body>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"></div>
+<div class="cursor-heart" id="cursorHeart" aria-hidden="true">❤</div>
 
-<button id="musicBtn" onclick="toggleMusic()">🎵 Tocar nossa música</button>
+<button class="music-btn" id="musicBtn" type="button" aria-label="Tocar ou pausar música">🎵 Tocar nossa música</button>
+<button class="secret-orb" id="secretOrb" type="button" aria-label="Surpresa escondida">✦</button>
+<div class="secret-message" id="secretMessage">Você encontrou um segredo: em qualquer universo, eu ainda procuraria por você. ❤️</div>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <img id="lightboxImg" src="">
-</div>
+<nav class="progress-dots" aria-label="Navegação entre as partes">
+  <button class="progress-dot active" data-screen="message" aria-label="Mensagem inicial"></button>
+  <button class="progress-dot" data-screen="letter" aria-label="Carta"></button>
+  <button class="progress-dot" data-screen="timeline" aria-label="Nossa história"></button>
+  <button class="progress-dot" data-screen="gallery" aria-label="Nossas memórias"></button>
+  <button class="progress-dot" data-screen="final" aria-label="Final"></button>
+</nav>
 
-<canvas id="space"></canvas>
-
-<audio id="music" loop>
-  <source src="musica.mp3" type="audio/mpeg">
+<audio id="music" loop preload="metadata">
+  <source src="musica.mp3" type="audio/mpeg" />
 </audio>
 
-
-<section class="screen active opening" id="opening">
-  <h1>Tenho algo só seu...</h1>
+<section class="screen active opening" id="opening" aria-label="Introdução">
+  <div class="intro-box">
+    <div class="intro-line">Carregando memórias...</div>
+    <div class="intro-line">Este lugar foi feito para uma única pessoa.</div>
+    <div class="intro-line">E essa pessoa é você. ❤️</div>
+    <div class="intro-spark">✦</div>
+  </div>
 </section>
 
 <section class="screen main-message" id="message">
-  <div>
-    <h2>Eu escolheria você em todas as versões da minha vida.</h2>
-    <button onclick="showLetter()">Abrir carta</button>
+  <div class="main-inner">
+    <div class="eyebrow">uma pequena parte do que eu sinto</div>
+    <h1><span id="typewriter"></span><span class="type-caret" id="typeCaret"></span></h1>
+    <button type="button" id="openLetterBtn">Abrir carta</button>
   </div>
 </section>
 
 <section class="screen" id="letter">
-  <div class="card">
+  <div class="glass-card">
     <h2>Para você.</h2>
 
-    <p>
-      Eu queria fazer algo diferente, porque você merece mais do que uma mensagem comum.
-    </p>
-
-    <p>
-      Entre milhões de possibilidades, caminhos e coincidências,
-      a melhor delas foi encontrar você.
-    </p>
-
-    <p>
-      Talvez eu nunca consiga colocar exatamente em palavras tudo o que sinto,
-      mas espero que cada detalhe deste pequeno projeto mostre um pouco disso.
-    </p>
-
-    <p>
-      Obrigado por existir na minha vida.
-    </p>
-
-    <div class="signature">
-      Com amor, seu amor hihihi ❤️
+    <div class="letter-text" id="letterText">
+      <p>Eu queria fazer algo diferente, porque você merece mais do que uma mensagem comum.</p>
+      <p>Entre milhões de possibilidades, caminhos e coincidências, a melhor delas foi encontrar você.</p>
+      <p>Talvez eu nunca consiga colocar exatamente em palavras tudo o que sinto, mas espero que cada detalhe deste pequeno projeto mostre um pouco disso.</p>
+      <p>Obrigada por existir na minha vida.</p>
     </div>
 
+    <div class="signature" id="signature">Com amor, seu amor hihihi ❤️</div>
+
     <div class="button-row">
-      <button class="back-btn" onclick="showMessage()">← Voltar</button>
-      <button onclick="showTimeline()">Continuar</button>
+      <button class="back-btn" type="button" data-go="message">← Voltar</button>
+      <button type="button" data-go="timeline">Continuar</button>
     </div>
   </div>
 </section>
 
 <section class="screen timeline" id="timeline">
   <div class="timeline-wrap">
-
-    <h2>Nossa história</h2>
+    <h2 class="section-title">Nossa história</h2>
+    <p class="section-subtitle">Alguns momentos que mudaram tudo.</p>
 
     <div class="timeline-list">
-
       <div class="timeline-item">
         <span>18 de abril</span>
         <p>Primeira vez que conversamos.</p>
       </div>
-
       <div class="timeline-item">
         <span>22 de abril</span>
-        <p>Primeira ligacao de video.</p>
+        <p>Primeira ligação de vídeo.</p>
       </div>
-
       <div class="timeline-item">
         <span>03 de junho</span>
         <p>Nosso primeiro encontro.</p>
       </div>
-
       <div class="timeline-item">
         <span>20 de junho</span>
         <p>Nosso primeiro dia juntas.</p>
       </div>
-
       <div class="timeline-item">
-        <span>HOJE</span>
+        <span>Hoje</span>
         <p>Você continua sendo meu lugar favorito.</p>
       </div>
-
     </div>
 
     <div class="button-row">
-      <button class="back-btn" onclick="showLetter()">← Voltar</button>
-      <button onclick="showGallery()">Ver nossas memórias</button>
+      <button class="back-btn" type="button" data-go="letter">← Voltar</button>
+      <button type="button" data-go="gallery">Ver nossas memórias</button>
     </div>
-
   </div>
 </section>
+
 <section class="screen gallery-screen" id="gallery">
-
   <div class="gallery-container">
+    <h2 class="section-title">Nossas memórias ❤️</h2>
+    <p class="section-subtitle">Cada foto guarda um pedacinho de nós.</p>
 
-    <h2>Nossas memórias ❤️</h2>
-
-    <div class="gallery">
-
-<img src="nos.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos2.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos3.jpeg" alt="" onclick="openLightbox(this.src)">
-<video src="nos12.mp4" controls playsinline preload="metadata"></video>
-<img src="nos5.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos6.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos8.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos9.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos10.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos11.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos13.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos14.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos15.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos16.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos17.jpeg" alt="" onclick="openLightbox(this.src)">
-<img src="nos18.jpeg" alt="" onclick="openLightbox(this.src)">
-<video src="nos20.mp4" controls playsinline preload="metadata"></video>
+    <div class="gallery" id="galleryGrid">
+      <div class="gallery-media"><img src="nos.jpeg" alt="Nossa memória 1" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos2.jpeg" alt="Nossa memória 2" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos3.jpeg" alt="Nossa memória 3" loading="lazy" /></div>
+      <div class="gallery-media"><video src="nos12.mp4" controls playsinline preload="metadata"></video><span class="video-label">▶ Vídeo</span></div>
+      <div class="gallery-media"><img src="nos5.jpeg" alt="Nossa memória 5" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos6.jpeg" alt="Nossa memória 6" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos8.jpeg" alt="Nossa memória 8" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos9.jpeg" alt="Nossa memória 9" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos10.jpeg" alt="Nossa memória 10" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos11.jpeg" alt="Nossa memória 11" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos13.jpeg" alt="Nossa memória 13" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos14.jpeg" alt="Nossa memória 14" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos15.jpeg" alt="Nossa memória 15" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos16.jpeg" alt="Nossa memória 16" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos17.jpeg" alt="Nossa memória 17" loading="lazy" /></div>
+      <div class="gallery-media"><img src="nos18.jpeg" alt="Nossa memória 18" loading="lazy" /></div>
+      <div class="gallery-media"><video src="nos20.mp4" controls playsinline preload="metadata"></video><span class="video-label">▶ Vídeo</span></div>
     </div>
 
     <div class="button-row">
-      <button class="back-btn" onclick="showTimeline()">← Voltar</button>
-      <button onclick="showFinal()">Última coisa...</button>
+      <button class="back-btn" type="button" data-go="timeline">← Voltar</button>
+      <button type="button" data-go="final">Última coisa...</button>
     </div>
-
   </div>
-
 </section>
 
 <section class="screen final-screen" id="final">
-
-  <div>
-
+  <div class="final-inner">
     <h1>Fim?</h1>
+    <p id="finalText">Ainda estamos só começando. ❤️</p>
 
-    <p id="finalText"></p>
-
-    <div id="counter"></div>
-
-    <div class="button-row">
-      <button class="back-btn" onclick="showGallery()">← Voltar para as memórias</button>
+    <div class="counter-title">Estamos juntas há</div>
+    <div class="counter-grid" aria-live="polite">
+      <div class="counter-card"><strong id="days">0</strong><span>Dias</span></div>
+      <div class="counter-card"><strong id="hours">0</strong><span>Horas</span></div>
+      <div class="counter-card"><strong id="minutes">0</strong><span>Minutos</span></div>
+      <div class="counter-card"><strong id="seconds">0</strong><span>Segundos</span></div>
     </div>
 
-  </div>
+    <p class="final-quote" id="finalQuote"></p>
 
+    <div class="button-row">
+      <button class="back-btn" type="button" data-go="gallery">← Voltar para as memórias</button>
+    </div>
+  </div>
 </section>
 
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada da foto">
+  <div class="lightbox-content">
+    <button class="lightbox-btn lightbox-close" type="button" id="lightboxClose" aria-label="Fechar">×</button>
+    <button class="lightbox-btn lightbox-prev" type="button" id="lightboxPrev" aria-label="Foto anterior">‹</button>
+    <img id="lightboxImg" src="" alt="Foto ampliada" />
+    <button class="lightbox-btn lightbox-next" type="button" id="lightboxNext" aria-label="Próxima foto">›</button>
+    <div class="lightbox-count" id="lightboxCount"></div>
+  </div>
+</div>
+
 <script>
+(() => {
+  "use strict";
 
-const canvas = document.getElementById("space");
-const ctx = canvas.getContext("2d");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const screens = [...document.querySelectorAll(".screen")];
+  const progressDots = [...document.querySelectorAll(".progress-dot")];
+  const music = document.getElementById("music");
+  const musicBtn = document.getElementById("musicBtn");
+  const canvas = document.getElementById("space");
+  const ctx = canvas.getContext("2d");
 
-let w;
-let h;
+  let currentScreen = "opening";
+  let counterTimer = null;
+  let heartsTimer = null;
+  let quoteStarted = false;
+  let secretClicks = 0;
+  let musicFadeFrame = null;
 
-function resize() {
+  function showScreen(id) {
+    screens.forEach(screen => screen.classList.toggle("active", screen.id === id));
+    currentScreen = id;
 
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
+    progressDots.forEach(dot => {
+      dot.classList.toggle("active", dot.dataset.screen === id);
+    });
 
-}
+    document.querySelectorAll("video").forEach(video => {
+      if (id !== "gallery") video.pause();
+    });
 
-resize();
+    if (id === "letter") revealLetter();
+    if (id === "timeline") revealTimeline();
+    if (id === "gallery") revealGallery();
+    if (id === "final") startFinal();
+  }
 
-window.addEventListener("resize", resize);
-if (window.visualViewport) {
-  window.visualViewport.addEventListener("resize", resize);
-}
-
-const stars = [];
-
-for(let i = 0; i < 180; i++) {
-
-  stars.push({
-
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 2,
-    speed: Math.random() * 0.25 + 0.05
-
+  document.querySelectorAll("[data-go]").forEach(button => {
+    button.addEventListener("click", () => showScreen(button.dataset.go));
   });
 
-}
+  progressDots.forEach(dot => {
+    dot.addEventListener("click", () => showScreen(dot.dataset.screen));
+  });
 
-function animate() {
-
-  ctx.clearRect(0,0,w,h);
-
-  stars.forEach(star => {
-
-    star.y -= star.speed;
-
-    if(star.y < -10){
-
-      star.y = h + 10;
-      star.x = Math.random() * w;
-
+  const introLines = [...document.querySelectorAll(".intro-line")];
+  function runIntro() {
+    if (prefersReducedMotion) {
+      setTimeout(() => {
+        showScreen("message");
+        startTypewriter();
+      }, 300);
+      return;
     }
 
-    ctx.beginPath();
-    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-
-    ctx.fillStyle = "rgba(255,255,255,.8)";
-    ctx.fill();
-
-  });
-
-  requestAnimationFrame(animate);
-
-}
-
-animate();
-
-setTimeout(() => {
-
-  document.getElementById("opening").classList.remove("active");
-  document.getElementById("message").classList.add("active");
-
-}, 4500);
-
-function hideAll() {
-
-  document.querySelectorAll(".screen").forEach(screen => {
-
-    screen.classList.remove("active");
-
-  });
-
-}
-
-function showMessage() {
-
-  hideAll();
-  document.getElementById("message").classList.add("active");
-
-}
-
-function showLetter() {
-
-  const music = document.getElementById("music");
-
-  if(music.paused){
-    music.play();
-  }
-
-  hideAll();
-
-  document.getElementById("letter").classList.add("active");
-
-}
-
-function showTimeline() {
-
-  hideAll();
-
-  document.getElementById("timeline").classList.add("active");
-
-}
-
-function showGallery() {
-
-  hideAll();
-
-  document.getElementById("gallery").classList.add("active");
-
-}
-
-function showFinal() {
-
-  hideAll();
-
-  document.getElementById("final").classList.add("active");
-
-  createHearts();
-
-  setTimeout(() => {
-
-    document.getElementById("finalText").innerHTML =
-    "Ainda estamos só começando.<br><br>❤️";
-
-    startCounter();
-
-  }, 1500);
-
-}
-
-function toggleMusic(){
-
-  const music = document.getElementById("music");
-  const btn = document.getElementById("musicBtn");
-
-  if(music.paused){
-
-    music.play();
-    btn.innerHTML = "⏸️ Pausar música";
-
-  }else{
-
-    music.pause();
-    btn.innerHTML = "🎵 Tocar nossa música";
-
-  }
-
-}
-function openLightbox(src) {
-  document.getElementById("lightboxImg").src = src;
-  document.getElementById("lightbox").style.display = "grid";
-}
-
-function closeLightbox() {
-  document.getElementById("lightbox").style.display = "none";
-}
-function startCounter() {
-
-  const startDate = new Date("2026-04-18T17:04:00");
-
-  function updateCounter() {
-
-    const now = new Date();
-    const diff = now - startDate;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("counter").innerHTML =
-      `Estamos juntas há<br>
-      <strong>${days}</strong> dias, 
-      <strong>${hours}</strong> horas,<br>
-      <strong>${minutes}</strong> minutos e 
-      <strong>${seconds}</strong> segundos `;
-
-  }
-
-  updateCounter();
-  setInterval(updateCounter, 1000);
-
-}
-
-let heartsInterval;
-
-function createHearts() {
-
-  if(heartsInterval) return;
-
-  heartsInterval = setInterval(() => {
-
-    const heart = document.createElement("div");
-
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 18 + 18 + "px";
-
-    document.body.appendChild(heart);
+    introLines.forEach((line, index) => {
+      setTimeout(() => line.classList.add("show"), index * 2100);
+    });
 
     setTimeout(() => {
-      heart.remove();
-    }, 5000);
+      showScreen("message");
+      startTypewriter();
+    }, introLines.length * 2100 + 350);
+  }
 
-  }, 350);
+  const typeTarget = document.getElementById("typewriter");
+  const typeCaret = document.getElementById("typeCaret");
+  const phrase = "Eu escolheria você em todas as versões da minha vida.";
+  let typeIndex = 0;
+  let typingStarted = false;
 
-}
+  function startTypewriter() {
+    if (typingStarted) return;
+    typingStarted = true;
+
+    if (prefersReducedMotion) {
+      typeTarget.textContent = phrase;
+      typeCaret.style.display = "none";
+      return;
+    }
+
+    const write = () => {
+      typeTarget.textContent = phrase.slice(0, typeIndex);
+      typeIndex++;
+      if (typeIndex <= phrase.length) {
+        setTimeout(write, 58 + Math.random() * 38);
+      } else {
+        setTimeout(() => typeCaret.style.display = "none", 900);
+      }
+    };
+    write();
+  }
+
+  document.getElementById("openLetterBtn").addEventListener("click", async () => {
+    showScreen("letter");
+    if (music.paused) await playMusicWithFade();
+  });
+
+  function revealLetter() {
+    const paragraphs = [...document.querySelectorAll("#letterText p")];
+    paragraphs.forEach((paragraph, index) => {
+      setTimeout(() => paragraph.classList.add("visible"), prefersReducedMotion ? 0 : index * 430);
+    });
+    setTimeout(() => document.getElementById("signature").classList.add("visible"), prefersReducedMotion ? 0 : paragraphs.length * 430);
+  }
+
+  function revealTimeline() {
+    const items = [...document.querySelectorAll(".timeline-item")];
+    items.forEach((item, index) => {
+      item.classList.remove("reveal");
+      setTimeout(() => item.classList.add("reveal"), prefersReducedMotion ? 0 : 160 + index * 220);
+    });
+  }
+
+  function revealGallery() {
+    const items = [...document.querySelectorAll(".gallery-media")];
+    items.forEach((item, index) => {
+      item.classList.remove("reveal");
+      setTimeout(() => item.classList.add("reveal"), prefersReducedMotion ? 0 : 90 + index * 85);
+    });
+  }
+
+  async function playMusicWithFade() {
+    cancelAnimationFrame(musicFadeFrame);
+    try {
+      music.volume = 0;
+      await music.play();
+      musicBtn.textContent = "⏸️ Pausar música";
+      musicBtn.classList.add("playing");
+      fadeVolume(0, 0.75, 2600);
+    } catch (error) {
+      musicBtn.textContent = "🎵 Toque para ouvir";
+    }
+  }
+
+  function pauseMusicWithFade() {
+    fadeVolume(music.volume, 0, 900, () => {
+      music.pause();
+      musicBtn.textContent = "🎵 Tocar nossa música";
+      musicBtn.classList.remove("playing");
+    });
+  }
+
+  function fadeVolume(from, to, duration, done) {
+    const start = performance.now();
+    cancelAnimationFrame(musicFadeFrame);
+
+    const step = now => {
+      const progress = Math.min((now - start) / duration, 1);
+      music.volume = Math.max(0, Math.min(1, from + (to - from) * progress));
+      if (progress < 1) musicFadeFrame = requestAnimationFrame(step);
+      else if (done) done();
+    };
+    musicFadeFrame = requestAnimationFrame(step);
+  }
+
+  musicBtn.addEventListener("click", () => {
+    if (music.paused) playMusicWithFade();
+    else pauseMusicWithFade();
+  });
+
+  // Fundo estrelado com constelações e reação ao mouse/toque.
+  let width = 0;
+  let height = 0;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let stars = [];
+  const pointer = { x: -1000, y: -1000 };
+
+  function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    createStars();
+  }
+
+  function createStars() {
+    const amount = Math.min(190, Math.max(85, Math.floor((width * height) / 7000)));
+    stars = Array.from({ length: amount }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 1.55 + .25,
+      vx: (Math.random() - .5) * .12,
+      vy: -(Math.random() * .17 + .025),
+      alpha: Math.random() * .55 + .3
+    }));
+  }
+
+  function animateStars() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < stars.length; i++) {
+      const star = stars[i];
+      const dx = star.x - pointer.x;
+      const dy = star.y - pointer.y;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < 110 && distance > 0) {
+        const force = (110 - distance) / 110;
+        star.x += (dx / distance) * force * 1.6;
+        star.y += (dy / distance) * force * 1.6;
+      }
+
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.y < -8) star.y = height + 8;
+      if (star.x < -8) star.x = width + 8;
+      if (star.x > width + 8) star.x = -8;
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+      ctx.fill();
+
+      for (let j = i + 1; j < stars.length; j++) {
+        const other = stars[j];
+        const lineDistance = Math.hypot(star.x - other.x, star.y - other.y);
+        if (lineDistance < 92) {
+          ctx.beginPath();
+          ctx.moveTo(star.x, star.y);
+          ctx.lineTo(other.x, other.y);
+          ctx.strokeStyle = `rgba(180,170,255,${(1 - lineDistance / 92) * .07})`;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener("pointermove", event => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  }, { passive: true });
+
+  window.addEventListener("pointerleave", () => {
+    pointer.x = -1000;
+    pointer.y = -1000;
+  });
+
+  window.addEventListener("resize", resizeCanvas);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  animateStars();
+
+  function createShootingStar() {
+    if (prefersReducedMotion) return;
+    const star = document.createElement("div");
+    star.className = "shooting-star";
+    star.style.left = `${Math.random() * 50 - 15}vw`;
+    star.style.top = `${Math.random() * 35}vh`;
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 1500);
+  }
+
+  setInterval(createShootingStar, 11000);
+  setTimeout(createShootingStar, 4500);
+
+  // Lightbox com setas, teclado e gesto lateral.
+  const galleryImages = [...document.querySelectorAll(".gallery-media img")];
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const lightboxCount = document.getElementById("lightboxCount");
+  let lightboxIndex = 0;
+  let touchStartX = 0;
+
+  function updateLightbox() {
+    const image = galleryImages[lightboxIndex];
+    lightboxImg.src = image.src;
+    lightboxImg.alt = image.alt;
+    lightboxCount.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+  }
+
+  function openLightbox(index) {
+    lightboxIndex = index;
+    updateLightbox();
+    lightbox.classList.add("open");
+    document.body.classList.add("lightbox-open");
+    document.getElementById("lightboxClose").focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    document.body.classList.remove("lightbox-open");
+  }
+
+  function moveLightbox(direction) {
+    lightboxIndex = (lightboxIndex + direction + galleryImages.length) % galleryImages.length;
+    updateLightbox();
+  }
+
+  galleryImages.forEach((image, index) => {
+    image.tabIndex = 0;
+    image.addEventListener("click", () => openLightbox(index));
+    image.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") openLightbox(index);
+    });
+  });
+
+  document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+  document.getElementById("lightboxPrev").addEventListener("click", () => moveLightbox(-1));
+  document.getElementById("lightboxNext").addEventListener("click", () => moveLightbox(1));
+  lightbox.addEventListener("click", event => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  lightbox.addEventListener("touchstart", event => {
+    touchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+
+  lightbox.addEventListener("touchend", event => {
+    const difference = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(difference) > 55) moveLightbox(difference > 0 ? -1 : 1);
+  }, { passive: true });
+
+  window.addEventListener("keydown", event => {
+    if (!lightbox.classList.contains("open")) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") moveLightbox(-1);
+    if (event.key === "ArrowRight") moveLightbox(1);
+  });
+
+  // Final com contador e mensagens.
+  function startFinal() {
+    startCounter();
+    startFloatingHearts();
+
+    if (!quoteStarted) {
+      quoteStarted = true;
+      setTimeout(() => heartFirework(window.innerWidth * .28, window.innerHeight * .38), 450);
+      setTimeout(() => heartFirework(window.innerWidth * .72, window.innerHeight * .32), 950);
+      setTimeout(() => typeFinalQuote(), 1500);
+    }
+  }
+
+  function startCounter() {
+    const startDate = new Date("2026-04-18T17:04:00-03:00");
+
+    const update = () => {
+      const now = new Date();
+      const diff = Math.max(0, now - startDate);
+      document.getElementById("days").textContent = Math.floor(diff / 86400000);
+      document.getElementById("hours").textContent = String(Math.floor(diff / 3600000) % 24).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(Math.floor(diff / 60000) % 60).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(Math.floor(diff / 1000) % 60).padStart(2, "0");
+    };
+
+    update();
+    if (!counterTimer) counterTimer = setInterval(update, 1000);
+  }
+
+  function typeFinalQuote() {
+    const target = document.getElementById("finalQuote");
+    const lines = [
+      "Se eu pudesse escolher de novo...",
+      "eu escolheria você.",
+      "Sempre. ❤️"
+    ];
+    const fullText = lines.join("\n");
+
+    if (prefersReducedMotion) {
+      target.innerHTML = lines.join("<br>");
+      return;
+    }
+
+    let index = 0;
+    const type = () => {
+      const visible = fullText.slice(0, index).replaceAll("\n", "<br>");
+      target.innerHTML = visible;
+      index++;
+      if (index <= fullText.length) setTimeout(type, 60);
+    };
+    type();
+  }
+
+  function startFloatingHearts() {
+    if (heartsTimer || prefersReducedMotion) return;
+    heartsTimer = setInterval(() => {
+      if (currentScreen !== "final") return;
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = Math.random() > .35 ? "❤️" : "💗";
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.fontSize = `${Math.random() * 18 + 16}px`;
+      heart.style.animationDuration = `${Math.random() * 2 + 4.2}s`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6500);
+    }, 420);
+  }
+
+  function heartFirework(x, y) {
+    if (prefersReducedMotion) return;
+    const amount = 22;
+    for (let i = 0; i < amount; i++) {
+      const particle = document.createElement("div");
+      const angle = (Math.PI * 2 * i) / amount;
+      const distance = 70 + Math.random() * 95;
+      particle.className = "firework-heart";
+      particle.textContent = Math.random() > .45 ? "❤" : "✦";
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      particle.style.fontSize = `${10 + Math.random() * 12}px`;
+      particle.style.color = Math.random() > .5 ? "#ff5fa2" : "#ffffff";
+      particle.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+      particle.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+      particle.style.setProperty("--r", `${Math.random() * 180 - 90}deg`);
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 1500);
+    }
+  }
+
+  // Surpresa escondida: clique cinco vezes na estrelinha inferior.
+  const secretOrb = document.getElementById("secretOrb");
+  const secretMessage = document.getElementById("secretMessage");
+  secretOrb.addEventListener("click", () => {
+    secretClicks++;
+    secretOrb.style.transform = `rotate(${secretClicks * 45}deg) scale(${1 + secretClicks * .035})`;
+    if (secretClicks >= 5) {
+      secretMessage.classList.add("show");
+      heartFirework(window.innerWidth / 2, window.innerHeight * .72);
+      setTimeout(() => secretMessage.classList.remove("show"), 5200);
+      secretClicks = 0;
+    }
+  });
+
+  // Pequeno coração acompanhando o mouse no desktop.
+  const cursorHeart = document.getElementById("cursorHeart");
+  if (window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("mousemove", event => {
+      cursorHeart.style.left = `${event.clientX + 12}px`;
+      cursorHeart.style.top = `${event.clientY + 12}px`;
+      cursorHeart.classList.add("visible");
+    }, { passive: true });
+    window.addEventListener("mouseout", () => cursorHeart.classList.remove("visible"));
+  }
+
+  runIntro();
+})();
 </script>
-
 </body>
 </html>
