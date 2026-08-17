@@ -860,6 +860,290 @@ button:focus-visible,
     transition-duration: .01ms !important;
   }
 }
+
+/* ===== MELHORIAS EXTRAS ===== */
+.story-card-media {
+  margin-top: 14px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.035);
+}
+
+.story-card-media img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+.universe-screen {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.universe-wrap {
+  width: min(980px, 100%);
+  margin: auto;
+  padding: 50px 0 calc(var(--safe-bottom) + 42px);
+}
+
+.universe-map {
+  position: relative;
+  width: min(860px, 100%);
+  min-height: 520px;
+  margin: 28px auto 0;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.045), transparent 52%),
+    linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.018));
+  border: 1px solid rgba(255,255,255,.12);
+  overflow: hidden;
+  box-shadow: inset 0 0 80px rgba(96,77,255,.08);
+}
+
+.memory-star {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  min-height: 120px;
+  border-radius: 50%;
+  padding: 14px;
+  font-size: 13px;
+  line-height: 1.25;
+  background: radial-gradient(circle, rgba(255,255,255,.22), rgba(255,77,158,.10) 48%, rgba(124,77,255,.08) 68%, transparent 70%);
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 0 22px rgba(255,90,180,.16), inset 0 0 18px rgba(255,255,255,.08);
+  animation: memoryStarFloat 4s ease-in-out infinite;
+}
+
+.memory-star::before {
+  content: "✦";
+  display: block;
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.memory-star:nth-child(2n) { animation-delay: -1.2s; }
+.memory-star:nth-child(3n) { animation-delay: -2.4s; }
+
+@keyframes memoryStarFloat {
+  50% { transform: translateY(-8px) scale(1.03); }
+}
+
+.memory-star:nth-child(1) { left: 8%; top: 13%; }
+.memory-star:nth-child(2) { left: 38%; top: 8%; }
+.memory-star:nth-child(3) { right: 9%; top: 18%; }
+.memory-star:nth-child(4) { left: 16%; bottom: 12%; }
+.memory-star:nth-child(5) { left: 44%; bottom: 7%; }
+.memory-star:nth-child(6) { right: 10%; bottom: 17%; }
+
+.memory-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 450;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(3,2,10,.82);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: .3s ease;
+}
+
+.memory-modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.memory-modal-card {
+  width: min(560px, 100%);
+  padding: 30px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(27,10,47,.96), rgba(11,8,28,.97));
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 35px 100px rgba(0,0,0,.45);
+  text-align: center;
+}
+
+.memory-modal-card h3 {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.memory-modal-card p {
+  color: rgba(255,255,255,.78);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.love-reasons {
+  width: min(940px, 100%);
+  margin: 34px auto 0;
+}
+
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.reason-card {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.13);
+  color: rgba(255,255,255,.86);
+  font-size: 18px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(18px) scale(.97);
+  transition: .6s ease;
+}
+
+.reason-card.reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.gallery-media.featured {
+  grid-column: span 2;
+  aspect-ratio: 16 / 10;
+}
+
+.gallery-caption {
+  position: absolute;
+  z-index: 4;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.44);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+  color: rgba(255,255,255,.88);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: .3s ease;
+}
+
+.gallery-media:hover .gallery-caption,
+.gallery-media:focus-within .gallery-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.song-name {
+  display: block;
+  font-size: 11px;
+  opacity: .68;
+  margin-top: 2px;
+}
+
+.music-bars {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.music-bars i {
+  width: 2px;
+  height: 9px;
+  background: currentColor;
+  border-radius: 999px;
+  animation: barPulse .7s ease-in-out infinite alternate;
+}
+
+.music-bars i:nth-child(2) { animation-delay: -.2s; }
+.music-bars i:nth-child(3) { animation-delay: -.4s; }
+
+@keyframes barPulse {
+  to { height: 16px; }
+}
+
+.music-btn:not(.playing) .music-bars { display: none; }
+
+.secret-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,74,158,.22), transparent 34%),
+    linear-gradient(145deg, rgba(5,3,18,.97), rgba(20,7,40,.98));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: .45s ease;
+}
+
+.secret-screen.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.secret-card {
+  width: min(680px, 100%);
+  text-align: center;
+  padding: 36px;
+  border-radius: 30px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(18px);
+}
+
+.secret-card h2 {
+  font-size: clamp(34px, 7vw, 62px);
+  font-weight: 280;
+  margin-bottom: 16px;
+}
+
+.secret-card p {
+  font-size: clamp(17px, 3.5vw, 22px);
+  line-height: 1.7;
+  color: rgba(255,255,255,.82);
+  margin-bottom: 22px;
+}
+
+.continue-mark {
+  margin-top: 24px;
+  font-size: 17px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  opacity: 0;
+  animation: continueIn 2s ease 4.8s forwards;
+}
+
+@keyframes continueIn { to { opacity: 1; } }
+
+@media (max-width: 768px) {
+  .reason-grid { grid-template-columns: 1fr; }
+  .gallery-media.featured { grid-column: span 1; aspect-ratio: 4 / 5; }
+  .universe-map { min-height: 720px; }
+  .memory-star { width: 105px; height: 105px; min-height: 105px; font-size: 12px; }
+  .memory-star:nth-child(1) { left: 7%; top: 6%; }
+  .memory-star:nth-child(2) { right: 7%; left: auto; top: 18%; }
+  .memory-star:nth-child(3) { left: 8%; top: 35%; right: auto; }
+  .memory-star:nth-child(4) { right: 7%; left: auto; top: 48%; bottom: auto; }
+  .memory-star:nth-child(5) { left: 11%; bottom: 13%; }
+  .memory-star:nth-child(6) { right: 8%; bottom: 5%; }
+}
+
 </style>
 </head>
 
@@ -868,7 +1152,7 @@ button:focus-visible,
 <div class="aurora" aria-hidden="true"></div>
 <div class="cursor-heart" id="cursorHeart" aria-hidden="true">❤</div>
 
-<button class="music-btn" id="musicBtn" type="button" aria-label="Tocar ou pausar música">🎵 Tocar nossa música</button>
+<button class="music-btn" id="musicBtn" type="button" aria-label="Tocar ou pausar música">🎵 <span id="musicBtnText">Tocar nossa música</span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="song-name">Nossa música</span></button>
 <button class="secret-orb" id="secretOrb" type="button" aria-label="Surpresa escondida">✦</button>
 <div class="secret-message" id="secretMessage">Você encontrou um segredo: em qualquer universo, eu ainda procuraria por você. ❤️</div>
 
@@ -876,6 +1160,7 @@ button:focus-visible,
   <button class="progress-dot active" data-screen="message" aria-label="Mensagem inicial"></button>
   <button class="progress-dot" data-screen="letter" aria-label="Carta"></button>
   <button class="progress-dot" data-screen="timeline" aria-label="Nossa história"></button>
+  <button class="progress-dot" data-screen="universe" aria-label="Nosso universo"></button>
   <button class="progress-dot" data-screen="gallery" aria-label="Nossas memórias"></button>
   <button class="progress-dot" data-screen="final" aria-label="Final"></button>
 </nav>
@@ -945,19 +1230,19 @@ button:focus-visible,
       </div>
       <div class="timeline-item">
         <span>03 de julho ao dia 5 de julho</span>
-        <p>Nosso primeiro final de semana juntos.</p>
+        <p>Nosso primeiro final de semana juntas.</p>
       </div>
       <div class="timeline-item">
         <span>11 de julho </span>
-        <p>Nosso almoco no shopping</p>
+        <p>Nosso almoço no shopping.</p>
       </div>
       <div class="timeline-item">
         <span>18 de julho </span>
-        <p> bob good humano kk</p>
+        <p>Bob Good humano kkkkk.</p>
       </div>
       <div class="timeline-item">
         <span>01 de agosto </span>
-        <p> Conhecendo a sogra</p>
+        <p>Conhecendo a sogra. ❤️</p>
       </div>
       <div class="timeline-item">
         <span>Hoje</span>
@@ -967,6 +1252,40 @@ button:focus-visible,
 
     <div class="button-row">
       <button class="back-btn" type="button" data-go="letter">← Voltar</button>
+      <button type="button" data-go="universe">Explorar nosso universo</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="screen universe-screen" id="universe">
+  <div class="universe-wrap">
+    <h2 class="section-title">Nosso universo ✦</h2>
+    <p class="section-subtitle">Algumas estrelas guardam coisas que eu nunca quero esquecer.</p>
+
+    <div class="universe-map" aria-label="Mapa de memórias">
+      <button class="memory-star" type="button" data-memory-title="Como tudo começou" data-memory-text="Eu gosto de pensar que, entre tantas pessoas e tantos caminhos, a gente acabou se encontrando exatamente na hora certa.">Como nos conhecemos</button>
+      <button class="memory-star" type="button" data-memory-title="Nosso primeiro encontro" data-memory-text="Aquele momento que parecia pequeno e acabou virando o começo de tanta coisa boa.">Primeiro encontro</button>
+      <button class="memory-star" type="button" data-memory-title="Uma coisa que talvez eu nunca diga direito" data-memory-text="Você conseguiu virar conforto, saudade, vontade de ficar e um monte de sentimento bonito ao mesmo tempo.">Uma coisa que nunca te contei</button>
+      <button class="memory-star" type="button" data-memory-title="Minha foto favorita" data-memory-text="Não é necessariamente a foto mais perfeita. É a que mais parece com a gente.">Minha foto favorita</button>
+      <button class="memory-star" type="button" data-memory-title="O que eu ainda quero viver com você" data-memory-text="Mais dias comuns, viagens, risadas idiotas, fotos sem sentido, planos e tudo aquilo que ainda nem sabemos que vai acontecer.">O que eu quero viver com você</button>
+      <button class="memory-star" type="button" data-memory-title="Abra quando estiver com saudade" data-memory-text="Se você estiver lendo isso com saudade, lembra que em algum lugar eu provavelmente também estou pensando em você. ❤️">Quando estiver com saudade</button>
+    </div>
+
+    <div class="love-reasons">
+      <h2 class="section-title" style="font-size:clamp(28px,5vw,46px);margin-top:46px;">Coisas que eu amo em você</h2>
+      <div class="reason-grid">
+        <div class="reason-card">Seu sorriso e o jeito que ele muda tudo ao redor.</div>
+        <div class="reason-card">Nossas conversas, até as completamente sem sentido.</div>
+        <div class="reason-card">O jeito que você consegue ser meu conforto.</div>
+        <div class="reason-card">As pequenas coisas que só eu percebo em você.</div>
+        <div class="reason-card">O tanto que eu gosto de simplesmente estar do seu lado.</div>
+        <div class="reason-card">E todas as coisas que eu ainda vou descobrir sobre você. ❤️</div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="back-btn" type="button" data-go="timeline">← Voltar</button>
       <button type="button" data-go="gallery">Ver nossas memórias</button>
     </div>
   </div>
@@ -978,10 +1297,10 @@ button:focus-visible,
     <p class="section-subtitle">Cada foto guarda um pedacinho de nós.</p>
 
     <div class="gallery" id="galleryGrid">
-      <div class="gallery-media"><img src="nos.jpeg" alt="Nossa memória 1" loading="lazy" /></div>
-      <div class="gallery-media"><img src="nos2.jpeg" alt="Nossa memória 2" loading="lazy" /></div>
-      <div class="gallery-media"><img src="nos3.jpeg" alt="Nossa memória 3" loading="lazy" /></div>
-      <div class="gallery-media"><video src="nos12.mp4" controls playsinline preload="metadata"></video><span class="video-label">▶ Vídeo</span></div>
+      <div class="gallery-media featured"><img src="nos.jpeg" alt="Nossa memória 1" loading="lazy" /><span class="gallery-caption">Uma das minhas favoritas. ❤️</span></div>
+      <div class="gallery-media"><img src="nos2.jpeg" alt="Nossa memória 2" loading="lazy" /><span class="gallery-caption">Eu amo lembrar desse dia.</span></div>
+      <div class="gallery-media"><img src="nos3.jpeg" alt="Nossa memória 3" loading="lazy" /><span class="gallery-caption">Nós, sendo nós.</span></div>
+      <div class="gallery-media featured"><video src="nos12.mp4" controls playsinline preload="metadata"></video><span class="video-label">▶ Vídeo</span><span class="gallery-caption">Uma memória que eu queria guardar pra sempre.</span></div>
       <div class="gallery-media"><img src="nos5.jpeg" alt="Nossa memória 5" loading="lazy" /></div>
       <div class="gallery-media"><img src="nos6.jpeg" alt="Nossa memória 6" loading="lazy" /></div>
       <div class="gallery-media"><img src="nos8.jpeg" alt="Nossa memória 8" loading="lazy" /></div>
@@ -998,7 +1317,7 @@ button:focus-visible,
     </div>
 
     <div class="button-row">
-      <button class="back-btn" type="button" data-go="timeline">← Voltar</button>
+      <button class="back-btn" type="button" data-go="universe">← Voltar</button>
       <button type="button" data-go="final">Última coisa...</button>
     </div>
   </div>
@@ -1018,12 +1337,33 @@ button:focus-visible,
     </div>
 
     <p class="final-quote" id="finalQuote"></p>
+    <div class="continue-mark">continua...</div>
 
     <div class="button-row">
       <button class="back-btn" type="button" data-go="gallery">← Voltar para as memórias</button>
     </div>
   </div>
 </section>
+
+
+<div class="memory-modal" id="memoryModal" role="dialog" aria-modal="true" aria-label="Memória">
+  <div class="memory-modal-card">
+    <h3 id="memoryModalTitle">Memória</h3>
+    <p id="memoryModalText"></p>
+    <div class="button-row">
+      <button type="button" id="memoryModalClose">Fechar ❤️</button>
+    </div>
+  </div>
+</div>
+
+<div class="secret-screen" id="secretScreen" aria-hidden="true">
+  <div class="secret-card">
+    <h2>Você encontrou nosso lugar secreto. ✦</h2>
+    <p>Se você chegou até aqui, ganhou uma última mensagem: eu gosto de nós até nos detalhes mais bobos, nos dias comuns e nas coisas que ninguém mais entenderia.</p>
+    <p>Em qualquer universo, eu ainda procuraria por você. ❤️</p>
+    <button type="button" id="closeSecretScreen">Voltar para nós</button>
+  </div>
+</div>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada da foto">
   <div class="lightbox-content">
@@ -1068,6 +1408,7 @@ button:focus-visible,
 
     if (id === "letter") revealLetter();
     if (id === "timeline") revealTimeline();
+    if (id === "universe") revealUniverse();
     if (id === "gallery") revealGallery();
     if (id === "final") startFinal();
   }
@@ -1149,6 +1490,14 @@ button:focus-visible,
     });
   }
 
+  function revealUniverse() {
+    const reasons = [...document.querySelectorAll(".reason-card")];
+    reasons.forEach((item, index) => {
+      item.classList.remove("reveal");
+      setTimeout(() => item.classList.add("reveal"), prefersReducedMotion ? 0 : 140 + index * 120);
+    });
+  }
+
   function revealGallery() {
     const items = [...document.querySelectorAll(".gallery-media")];
     items.forEach((item, index) => {
@@ -1162,18 +1511,18 @@ button:focus-visible,
     try {
       music.volume = 0;
       await music.play();
-      musicBtn.textContent = "⏸️ Pausar música";
+      document.getElementById("musicBtnText").textContent = "Pausar música";
       musicBtn.classList.add("playing");
       fadeVolume(0, 0.75, 2600);
     } catch (error) {
-      musicBtn.textContent = "🎵 Toque para ouvir";
+      document.getElementById("musicBtnText").textContent = "Toque para ouvir";
     }
   }
 
   function pauseMusicWithFade() {
     fadeVolume(music.volume, 0, 900, () => {
       music.pause();
-      musicBtn.textContent = "🎵 Tocar nossa música";
+      document.getElementById("musicBtnText").textContent = "Tocar nossa música";
       musicBtn.classList.remove("playing");
     });
   }
@@ -1298,6 +1647,25 @@ button:focus-visible,
 
   setInterval(createShootingStar, 11000);
   setTimeout(createShootingStar, 4500);
+
+
+  // Universo interativo.
+  const memoryModal = document.getElementById("memoryModal");
+  const memoryModalTitle = document.getElementById("memoryModalTitle");
+  const memoryModalText = document.getElementById("memoryModalText");
+
+  document.querySelectorAll(".memory-star").forEach(star => {
+    star.addEventListener("click", () => {
+      memoryModalTitle.textContent = star.dataset.memoryTitle || "Memória";
+      memoryModalText.textContent = star.dataset.memoryText || "";
+      memoryModal.classList.add("open");
+    });
+  });
+
+  document.getElementById("memoryModalClose").addEventListener("click", () => memoryModal.classList.remove("open"));
+  memoryModal.addEventListener("click", event => {
+    if (event.target === memoryModal) memoryModal.classList.remove("open");
+  });
 
   // Lightbox com setas, teclado e gesto lateral.
   const galleryImages = [...document.querySelectorAll(".gallery-media img")];
@@ -1459,9 +1827,9 @@ button:focus-visible,
     secretClicks++;
     secretOrb.style.transform = `rotate(${secretClicks * 45}deg) scale(${1 + secretClicks * .035})`;
     if (secretClicks >= 5) {
-      secretMessage.classList.add("show");
       heartFirework(window.innerWidth / 2, window.innerHeight * .72);
-      setTimeout(() => secretMessage.classList.remove("show"), 5200);
+      document.getElementById("secretScreen").classList.add("open");
+      document.getElementById("secretScreen").setAttribute("aria-hidden", "false");
       secretClicks = 0;
     }
   });
@@ -1476,6 +1844,37 @@ button:focus-visible,
     }, { passive: true });
     window.addEventListener("mouseout", () => cursorHeart.classList.remove("visible"));
   }
+
+
+  document.getElementById("closeSecretScreen").addEventListener("click", () => {
+    const secretScreen = document.getElementById("secretScreen");
+    secretScreen.classList.remove("open");
+    secretScreen.setAttribute("aria-hidden", "true");
+  });
+
+  // Gesto lateral entre telas no celular.
+  const swipeOrder = ["message", "letter", "timeline", "universe", "gallery", "final"];
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+
+  window.addEventListener("touchstart", event => {
+    if (lightbox.classList.contains("open") || memoryModal.classList.contains("open")) return;
+    swipeStartX = event.changedTouches[0].clientX;
+    swipeStartY = event.changedTouches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener("touchend", event => {
+    if (lightbox.classList.contains("open") || memoryModal.classList.contains("open")) return;
+    if (!swipeOrder.includes(currentScreen)) return;
+
+    const dx = event.changedTouches[0].clientX - swipeStartX;
+    const dy = event.changedTouches[0].clientY - swipeStartY;
+    if (Math.abs(dx) < 75 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+
+    const currentIndex = swipeOrder.indexOf(currentScreen);
+    const nextIndex = dx < 0 ? currentIndex + 1 : currentIndex - 1;
+    if (nextIndex >= 0 && nextIndex < swipeOrder.length) showScreen(swipeOrder[nextIndex]);
+  }, { passive: true });
 
   runIntro();
 })();
